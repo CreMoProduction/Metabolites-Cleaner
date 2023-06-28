@@ -1,7 +1,19 @@
-# Metabolites Cleaner 
-![](https://img.shields.io/badge/-made%20with%20R-blue) [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 
-**Metabolites Cleaner** is a tool for compounds cleaning to simplify further metabolomics analysis
+
+
+```
+  __  __      _        _           _ _ _               _____ _                            
+ |  \/  |    | |      | |         | (_) |             / ____| |                           
+ | \  / | ___| |_ __ _| |__   ___ | |_| |_ ___  ___  | |    | | ___  __ _ _ __   ___ _ __ 
+ | |\/| |/ _ \ __/ _` | '_ \ / _ \| | | __/ _ \/ __| | |    | |/ _ \/ _` | '_ \ / _ \ '__|
+ | |  | |  __/ || (_| | |_) | (_) | | | ||  __/\__ \ | |____| |  __/ (_| | | | |  __/ |   
+ |_|  |_|\___|\__\__,_|_.__/ \___/|_|_|\__\___||___/  \_____|_|\___|\__,_|_| |_|\___|_|   
+```
+<img src= ""/>
+
+# Metabolites Cleaner
+
+**Metabolites Cleaner** is a tool to tidy up compounds list to simplify further metabolomics analysis
 
 ### [NIST Cleaner](##-how-to-use-nist-cleaner?)
 Removes `Targert` and `Orthogonal` as well as removes metabolites found in the folder `Rejected` from the NIST.txt file. Provides detailed info of the processing done. 
@@ -13,6 +25,9 @@ Reject unwanted metabolites from the Excel workbook. Creates a worksheet with re
 Cleans metabolite names in the excel table.  
 
 
+
+------ 
+<img src= "https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white"/><img src= "https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"/><img src= "https://img.shields.io/badge/windows%20terminal-4D4D4D?style=for-the-badge&logo=windows%20terminal&logoColor=white"/>
 
 ------ 
 # How to run?
