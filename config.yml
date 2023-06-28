@@ -1,0 +1,22 @@
+
+#--------NIST_CLEANER--------
+nist_cleaner:
+  #active when 1, disabled when 0.
+  remove_Target: 0
+  remove_Orthogonal: 0
+  remove_Recursion: 0
+  remove_rejceted: 1
+
+
+
+#-----EXCEL_CLEANER-----
+excel_cleaner: 
+  xlsx_sheet: Integrated Unimodal 1
+  #search by  index 0, search by name 1.
+  search_algorithm: 1
+
+
+#---------NAME_FIXER----------
+name_fixer: 
+  xlsx_sheet: Integrated Unimodal 1
+
