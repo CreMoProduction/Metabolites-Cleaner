@@ -9,13 +9,12 @@
  | |  | |  __/ || (_| | |_) | (_) | | | ||  __/\__ \ | |____| |  __/ (_| | | | |  __/ |   
  |_|  |_|\___|\__\__,_|_.__/ \___/|_|_|\__\___||___/  \_____|_|\___|\__,_|_| |_|\___|_|   
 ```
-<img src= ""/>
 
 # Metabolites Cleaner
 
 **Metabolites Cleaner** is a tool to tidy up compounds list to simplify further metabolomics analysis
 
-### [NIST Cleaner](##-how-to-use-nist-cleaner?)
+### [NIST Cleaner](#nist)
 Removes `Targert` and `Orthogonal` as well as removes metabolites found in the folder `Rejected` from the NIST.txt file. Provides detailed info of the processing done. 
 
 ### [Excel Cleaner](##-how-to-use-excel-cleaner?) 
@@ -43,6 +42,7 @@ Cleans metabolite names in the excel table.
 
 
 ------
+<a id="nist"></a>
 ## How to use NIST Cleaner?
 1. Navigate to the png files repository of the metabolites peaks. 
 2. Create `Rejected` folder in the root of the png files repository.  
