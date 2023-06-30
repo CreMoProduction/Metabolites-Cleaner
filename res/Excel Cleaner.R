@@ -14,19 +14,21 @@ if (OS_environment==TRUE) {
 
 
 
+package= function() {
+  packages <- c(
+                "dplyr", 
+                "readxl", 
+                "yaml",      #для импорта настроек
+                "rio",       #экспорт xlsx файл
+                "openxlsx",
+                "stringdist" #ищу совпадения в строках
+  )
+  install.packages(setdiff(packages, rownames(installed.packages())), repos = "http://cran.us.r-project.org")
+  #-----------
+  lapply(packages, require, character.only = TRUE)
+}
 
-packages <- c(
-              "dplyr", 
-              "readxl", 
-              "yaml",      #для импорта настроек
-              "rio",       #экспорт xlsx файл
-              "openxlsx",
-              "stringdist" #ищу совпадения в строках
-)
-install.packages(setdiff(packages, rownames(installed.packages())), repos = "http://cran.us.r-project.org")
-#-----------
-lapply(packages, require, character.only = TRUE)
-#----------------
+
 #Импорт данных
 #---получаю путь к этому файлу
 if  (OS_environment==FALSE) { 
@@ -39,12 +41,15 @@ if  (OS_environment==FALSE) {
     if (length(this_file)==0)
     {
       this_file <- rstudioapi::getSourceEditorContext()$path
+      package()
     }
     return(dirname(this_file))
   }
   currentfillelocation = getCurrentFileLocation()
 } else {
   currentfillelocation <- "C:/metabolite_cleaner_data"
+  source(paste(currentfillelocation, "/package", sep=""))
+  package_OS()
 }
 
 
@@ -69,7 +74,7 @@ search_algorithm= config$excel_cleaner$search_algorithm
 #файлы approved
 #if (interactive() && .Platform$OS.type == "windows") {
 
-dir=choose.files( caption= "Select XLSX File", multi = FALSE)
+dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
 if (length(dir) == 0 || !tools::file_ext(dir) =="xlsx") {
   stop("No file selected or wrong file type")

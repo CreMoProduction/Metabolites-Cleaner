@@ -1,6 +1,6 @@
 #debug settings, use --FALSE-- value when running in RStudio
 
-OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
+OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
 
 
 if (OS_environment==TRUE) {
@@ -14,22 +14,23 @@ if (OS_environment==TRUE) {
 
 
 
-
-packages <- c(
-  "dplyr", 
-  "readxl", 
-  "yaml",      #для импорта настроек
-  "rio",       #экспорт xlsx файл
-  "openxlsx",
-  "progress",
-  "R.utils",  #пакет для отработки исключения в случе ошибки в цикле для проуска итерации
-  "stringdist", #ищу совпадения в строках
-  "yaml"      #для импорта настроек
-)
-install.packages(setdiff(packages, rownames(installed.packages())), repos = "http://cran.us.r-project.org")
-#remove.packages(packages)
-#-----------
-lapply(packages, require, character.only = TRUE)
+package= function() {
+  packages <- c(
+    "dplyr", 
+    "readxl", 
+    "yaml",      #для импорта настроек
+    "rio",       #экспорт xlsx файл
+    "openxlsx",
+    "progress",
+    "R.utils",  #пакет для отработки исключения в случе ошибки в цикле для проуска итерации
+    "stringdist", #ищу совпадения в строках
+    "yaml"      #для импорта настроек
+  )
+  install.packages(setdiff(packages, rownames(installed.packages())), repos = "http://cran.us.r-project.org")
+  #remove.packages(packages)
+  #-----------
+  lapply(packages, require, character.only = TRUE)
+}
 
 
 
@@ -45,12 +46,15 @@ if  (OS_environment==FALSE) {
     if (length(this_file)==0)
     {
       this_file <- rstudioapi::getSourceEditorContext()$path
+      package()
     }
     return(dirname(this_file))
   }
   currentfillelocation = getCurrentFileLocation()
 } else {
   currentfillelocation <- "C:/metabolite_cleaner_data"
+  source(paste(currentfillelocation, "/package", sep=""))
+  package_OS()
 }
 
 

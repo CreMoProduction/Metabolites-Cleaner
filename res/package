@@ -1,0 +1,32 @@
+package_OS= function() {
+
+  packages <- c(
+    "dplyr", 
+    "readxl", 
+    "yaml",      #для импорта настроек
+    "rio",       #экспорт xlsx файл
+    "openxlsx",
+    "progress",
+    "R.utils",  #пакет для отработки исключения в случе ошибки в цикле для проуска итерации
+    "stringdist", #ищу совпадения в строках
+    "yaml",      #для импорта настроек
+    "stringr"
+  )
+  install_path= "C:/metabolite_cleaner_data/packages"
+ # Function to check and install packages
+  for (package in packages) {
+    if (!require(package, character.only = TRUE)) {
+      install.packages(package, lib = install_path, repos = "http://cran.us.r-project.org")
+    }
+  }
+  for (package in packages) {
+    library(package, lib.loc = install_path, character.only = TRUE)
+  }
+  #remove.packages(packages)
+}
+
+
+
+
+
+

@@ -4,7 +4,9 @@ TITLE %title%
 @echo off
 
 if not exist "C:\metabolite_cleaner_data\" mkdir "C:\metabolite_cleaner_data"
+if not exist "C:\metabolite_cleaner_data\packages" mkdir "C:\metabolite_cleaner_data\packages"
 COPY "%~dp0\config.yml" "C:\metabolite_cleaner_data\config.yml"
+COPY "%~dp0\res\package" "C:\metabolite_cleaner_data\package"
 rem echo %~dp0 > data
 cls
 SETLOCAL ENABLEEXTENSIONS
@@ -57,9 +59,11 @@ for /r "c:\Program Files" %%F in (*Rscript.exe*) do (
     rem Echo x=msgbox^("finished running",64,""^)>"%temp%\msg.vbs"
 	rem start %temp%\msg.vbs
 	pause
+    @echo off
+    COPY "%~dp0\config.yml" "C:\metabolite_cleaner_data\config.yml"
     echo restarting...
     echo. 
-	timeout 2 >nul
+	timeout 1 >nul
   	goto :start
 )
 echo ---%title% error---
