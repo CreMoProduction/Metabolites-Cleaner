@@ -1,8 +1,8 @@
 #debug settings, use --FALSE-- value when running in RStudio
-
-OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
-
-
+#
+OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
+#
+#
 if (OS_environment==TRUE) {
   #install.packages('plyr', repos = "http://cran.us.r-project.org")
   print("running in command prompt")
@@ -11,9 +11,6 @@ if (OS_environment==TRUE) {
   print("runnning in RStudio")
   rm(list=setdiff(ls(), "OS_environment"))   #clear environment
 }
-
-
-
 package= function() {
   packages <- c(
                 "dplyr", 
@@ -27,8 +24,6 @@ package= function() {
   #-----------
   lapply(packages, require, character.only = TRUE)
 }
-
-
 #Импорт данных
 #---получаю путь к этому файлу
 if  (OS_environment==FALSE) { 
@@ -51,47 +46,34 @@ if  (OS_environment==FALSE) {
   source(paste(currentfillelocation, "/package", sep=""))
   package_OS()
 }
-
-
 currentfillelocation = gsub("/res","",currentfillelocation) 
-
 #---импортирую настройки из файла config.yml
 config = yaml.load_file(file.path(currentfillelocation, "config.yml"))
-
 #working_xlsx_workbook= config$excel_cleaner$xlsx_name
 working_sheet= config$excel_cleaner$xlsx_sheet
 search_algorithm= config$excel_cleaner$search_algorithm
-
-
-
-
 #--------------
 #working_xlsx_workbook = "RDA_Target_Data_Model"
 #working_sheet = "Integrated Unimodal 1"
 #--------------
-
 #-----------------------работаю с файлами картинок
 #файлы approved
 #if (interactive() && .Platform$OS.type == "windows") {
-
 dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
-if (length(dir) == 0 || !tools::file_ext(dir) =="xlsx") {
+if (length(dir) == 0 || :file_ext(dir) =="xlsx") {
   stop("No file selected or wrong file type")
 }
 #  }
 #dir = choose.dir(default = "", caption = "Select Output RDA folder")
 lst_files = list.files(path=dirname(dir), pattern="\\.png$", all.files=FALSE, full.names=FALSE)
-
 #файлы rejected
 dir_rejected = file.path(dirname(dir), "Rejected", fsep="\\")
 lst_files_rejected = list.files(path=dir_rejected, pattern="\\.png$", all.files=FALSE, full.names=FALSE)
-
 #получаю расширение файла .png
 substrRight <- function(x, n){
   substr(x, nchar(x)-n+1, nchar(x))
 }
-
 #создаю список только с названиями .png
 lst_files_png = c()
 for (i in 1:length(lst_files)) {
@@ -102,25 +84,18 @@ for (i in 1:length(lst_files)) {
 }
 print(paste("Total found metabolites: ", length(lst_files)+length(lst_files_rejected), sep=""))
 print(paste("Found metabolites to reject: ", length(lst_files_rejected), sep=""))
-
-
 #создаю дубликат xlsx
 xlsx = file.path(dir)
 xlsx_new= file.path(dirname(dir), paste(tools::file_path_sans_ext(basename(dir)),"_CLEAN.xlsx", sep=""), fsep="/")
 file.copy(xlsx, xlsx_new, overwrite = TRUE )
 #открываю excel файл
 Excel_file = read_excel(xlsx_new, sheet = working_sheet)
-
 #создаю лист Rejected
 wb <- loadWorkbook(file = xlsx_new)
 addWorksheet(wb, paste("Rejected"))
 df_rejected = NULL
 df_rejected =  Excel_file[,1:2]
 #----------
-
-
-
-
 #поиск по индексу
 index_search= function() {
   for (k in 1:length(lst_files_rejected)) {
@@ -139,7 +114,6 @@ index_search= function() {
   result <- list(df_rejected, Excel_file)
   return(result)
 }
-
 #поиск по имени
 name_search= function() {
   for (k in 1:length(lst_files_rejected)) {
@@ -159,7 +133,7 @@ name_search= function() {
   }
   result <- list(df_rejected, Excel_file)
   return(result)
-  
+ECHO is off.
   # for (k in 1:length(lst_files_rejected)) {
   #   for (i in 3:ncol(Excel_file)) {
   # 
@@ -176,7 +150,6 @@ name_search= function() {
   #   }
   # }
 }
-
 #--------главная исполняемая фишка здесь
 if (search_algorithm==0) {
   print(paste("-------------"))
@@ -191,11 +164,9 @@ if (search_algorithm==0) {
 #получаю датасетыдля эксель
 df_rejected= data.frame(result[1])
 Excel_file= data.frame(result[2])
-
 #заменяю точки на пробел
 colnames(df_rejected)= gsub("\\.", " ", colnames(df_rejected))
 colnames(Excel_file)= gsub("\\.", " ", colnames(Excel_file))
-
 removeWorksheet(wb, sheet = working_sheet)
 saveWorkbook(wb, xlsx_new, overwrite = TRUE)
 #deleteData(wb,working_sheet, 1:ncol(Excel_file)+length(lst_files_rejected), 1:nrow(Excel_file), gridExpand = TRUE)
@@ -210,18 +181,7 @@ saveWorkbook(wb,xlsx_new,overwrite = TRUE)
 #xlsx_new_clean = read_excel(xlsx_new, sheet = working_sheet)
 #addWorksheet(wb, paste("CLEAN NAMES"))
 #Excel_file_clean = Excel_file
-
-
-
 #writeData(wb,paste("CLEAN NAMES"), Excel_file_clean)
 saveWorkbook(wb,xlsx_new,overwrite = TRUE)
 print(paste("Excel saved", sep=" "))
-
-
-
-
-
-
-
-
-          
+ECHO is off.

@@ -1,8 +1,8 @@
 #debug settings, use --FALSE-- value when running in RStudio
-
-OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
-
-
+#
+OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
+#
+#
 if (OS_environment==TRUE) {
   #install.packages('plyr', repos = "http://cran.us.r-project.org")
   print("running in command prompt")
@@ -11,9 +11,6 @@ if (OS_environment==TRUE) {
   print("runnning in RStudio")
   rm(list=setdiff(ls(), "OS_environment"))   #clear environment
 }
-
-
-
 package= function() {
   packages <- c(
     "dplyr", 
@@ -32,8 +29,6 @@ package= function() {
   #-----------
   lapply(packages, require, character.only = TRUE)
 }
-
-
 #Импорт данных
 #---получаю путь к этому файлу
 if  (OS_environment==FALSE) { 
@@ -56,45 +51,32 @@ if  (OS_environment==FALSE) {
   source(paste(currentfillelocation, "/package", sep=""))
   package_OS()
 }
-
-
 currentfillelocation = gsub("/res","",currentfillelocation) 
-
 #---импортирую настройки из файла config.yml
 config = yaml.load_file(file.path(currentfillelocation, "config.yml"))
-
 working_sheet= config$name_fixer$xlsx_sheet
-
-
 #-----------------
-
 #открываю excel файл
 dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
-if (length(dir) == 0 || !tools::file_ext(dir) =="xlsx") {
+if (length(dir) == 0 || :file_ext(dir) =="xlsx") {
   stop("No file selected or wrong file type")
 }
-
-
 Excel_file = read_excel(dir, sheet = working_sheet)
 Excel_file_clean = Excel_file
-
-
-
 #первая буква заглавная
 caprialzied_first_character = function(x){
   paste(toupper(substring(x, 1, 1)),
         tolower(substring(x, 2, nchar(x))),
         sep = "")
 }
-
 remove_index= function(str) { #удаляю индекс 
   first_space_position <- regexpr(" ", str)
-  
+ECHO is off.
   if (first_space_position > 1) {
     first_character <- substr(str, 1, 1)
     preceding_characters <- substr(str, 2, first_space_position - 1)
-    
+ECHO is off.
     if (grepl("^[A-Za-z]$", first_character) && grepl("^[0-9]+$", preceding_characters)) {
       # First character is a letter and preceding characters before the first space are digits
       # Your desired actions here
@@ -105,24 +87,23 @@ remove_index= function(str) { #удаляю индекс
   } 
   return(str)
 }
-
 #чистка строки от мусора
 for (i in 3:ncol(Excel_file_clean)) {
   str = names(Excel_file_clean[,i])
   tms = unlist(gregexpr(pattern ='TMS',str))
-  if (tms!=-1) {
+  if (tms=-1) {
     str = substr(str, 1, tms-3)
   }
   mz = unlist(gregexpr(pattern ='Mz',str))
-  if (mz!=-1) {
+  if (mz=-1) {
     str = substr(str, 1, mz-3)
   }
   Mz = unlist(gregexpr(pattern ='M/z',str))
-  if (Mz!=-1) {
+  if (Mz=-1) {
     str = substr(str, 1, Mz-3)
   }
   meox = unlist(gregexpr(pattern ='MEOX',str))
-  if (meox!=-1) {
+  if (meox=-1) {
     str = substr(str, 1, meox-2)
   }
   # if (grepl("^[A-Za-z]", substr(str, 1, 1)) && grepl("^[0-9]", substr(str, 2, 2))) { #удаляю индекс 
@@ -142,18 +123,15 @@ for (i in 3:ncol(Excel_file_clean)) {
   str = trimws(str)
   print(str)
   names(Excel_file_clean)[i] = str
-  
+ECHO is off.
 }
-
 #удаляю лист из эксель, если он существует
 wb <- loadWorkbook(file = dir)
 if ("FIXED NAMES" %in% getSheetNames(dir)) {
   removeWorksheet(wb, sheet = "FIXED NAMES")
   saveWorkbook(wb, dir, overwrite = TRUE)
 }
-
 addWorksheet(wb, paste("FIXED NAMES"))
 writeData(wb,paste("FIXED NAMES"), Excel_file_clean)
 saveWorkbook(wb,dir,overwrite = TRUE)
 print(paste("Excel saved", sep=" "))
-
