@@ -10,7 +10,8 @@ package_OS= function() {
     "R.utils",  #пакет для отработки исключения в случе ошибки в цикле для проуска итерации
     "stringdist", #ищу совпадения в строках
     "yaml",      #для импорта настроек
-    "stringr"
+    "stringr",
+    "tools"
   )
   install_path= "C:/metabolite_cleaner_data/packages"
  # Function to check and install packages

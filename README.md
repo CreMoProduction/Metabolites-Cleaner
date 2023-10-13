@@ -17,10 +17,10 @@
 ### [NIST Cleaner](#nist)
 Removes `Targert` and `Orthogonal` as well as removes metabolites found in the folder `Rejected` from the NIST.txt file. Provides detailed info of the processing done. 
 
-### [Excel Cleaner](##-how-to-use-excel-cleaner?) 
+### [Excel Cleaner](#excel-cleaner) 
 Reject unwanted metabolites from the Excel workbook. Creates a worksheet with rejected metabolites. 
 
-### [Name Fixer](##-how-to-use-name-fixer?)
+### [Name Fixer](#name-fixer)
 Cleans metabolite names in the excel table.  
 
 
@@ -64,7 +64,8 @@ remove_rejceted: 1
 5. Provides detailed info about the processions was done.  
 
 
------- 
+------
+<a id="excel-cleaner"></a> 
 ## How to use Excel Cleaner?
 1. Navigate to the png files repository of the metabolites peaks. 
 2. Create `Rejected` folder (if such does not exist) in the root folder.  
@@ -88,6 +89,7 @@ search_algorithm: 1
 
 
 ------ 
+<a id="name-fixer"></a>
 ## How to use Name Fixer?
 1. Select excel file to fix component names. 
 2. Done.
@@ -120,3 +122,4 @@ stringdist
 yaml
 stringr
 ``` 
+**Note!** Run `\res\OS_environment.bat` to switch `OS_environment` key to run Metabolites Cleaner in Windows terminal. 

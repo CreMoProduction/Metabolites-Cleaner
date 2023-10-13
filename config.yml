@@ -18,5 +18,6 @@ excel_cleaner:
 
 #---------NAME_FIXER----------
 name_fixer: 
-  xlsx_sheet: Integrated Unimodal 1
+  #xlsx_sheet: Integrated Unimodal 1
+  xlsx_sheet: Sheet1
 
