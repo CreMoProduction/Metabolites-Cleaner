@@ -21,7 +21,8 @@ package= function() {
     "progress",
     "R.utils",  #пакет для отработки исключения в случе ошибки в цикле для проуска итерации
     "stringdist", #ищу совпадения в строках
-    "yaml"      #для импорта настроек
+    "yaml",      #для импорта настроек
+    "progress"
   )
   install.packages(setdiff(packages, rownames(installed.packages())), repos = "http://cran.us.r-project.org")
   #remove.packages(packages)
@@ -61,7 +62,7 @@ rm_Rejceted= config$nist_cleaner$remove_rejceted
 #-----------------------работаю с файлами картинок
 #файлы approved
 dir=choose.files(caption= "Select NIST file")
-if (length(dir) == 0 || :file_ext(dir) =="txt") {
+if (length(dir) == 0 || file_ext(dir) !="txt") {
   stop("No file selected or wrong file type")
 }
 #dir = choose.dir(default = "", caption = "Select Output RDA folder")
@@ -119,8 +120,8 @@ remover_func= function(aim) {
   i=1
   pb <- txtProgressBar(min = 0, max = count_target, style = 3) #progressbar
   progress <- 0 #progressbar
-ECHO is off.
-  while (count_target=0) {
+
+  while (count_target!=0) {
     pattern <- paste0(aim, "(..)$") #проверяю если 2 символа следуют после aim
     if (any(grepl(fun_aim, text[i])) & grepl(pattern, text[i])) { 
       start_row= i
@@ -145,8 +146,7 @@ ECHO is off.
       #count_orthogonal <- length(grep("   Recursion", text))
       #print(paste(count_target, count_recursion, count_orthogonal, sep= " "))
       i=i
-ECHO is off.
-ECHO is off.
+
     } else {i=i+1}
     if (count_target == 0) { #progressbar
       # Close the progress bar
@@ -183,7 +183,7 @@ remove_rejected_func= function(aim) {  #удаляю строки из папк�
       condition_met= TRUE
     }
   }
-ECHO is off.
+
   #print(count_target)
   return(text)
 }

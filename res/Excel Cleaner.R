@@ -1,6 +1,6 @@
 #debug settings, use --FALSE-- value when running in RStudio
 #
-OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
+OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
 #
 #
 if (OS_environment==TRUE) {
@@ -61,7 +61,7 @@ search_algorithm= config$excel_cleaner$search_algorithm
 #if (interactive() && .Platform$OS.type == "windows") {
 dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
-if (length(dir) == 0 || :file_ext(dir) =="xlsx") {
+if (length(dir) == 0 || file_ext(dir) !="xlsx") {
   stop("No file selected or wrong file type")
 }
 #  }
@@ -133,7 +133,6 @@ name_search= function() {
   }
   result <- list(df_rejected, Excel_file)
   return(result)
-ECHO is off.
   # for (k in 1:length(lst_files_rejected)) {
   #   for (i in 3:ncol(Excel_file)) {
   # 
@@ -184,4 +183,3 @@ saveWorkbook(wb,xlsx_new,overwrite = TRUE)
 #writeData(wb,paste("CLEAN NAMES"), Excel_file_clean)
 saveWorkbook(wb,xlsx_new,overwrite = TRUE)
 print(paste("Excel saved", sep=" "))
-ECHO is off.

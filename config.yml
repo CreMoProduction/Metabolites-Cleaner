@@ -2,8 +2,8 @@
 #--------NIST_CLEANER--------
 nist_cleaner:
   #active when 1, disabled when 0.
-  remove_Target: 0
-  remove_Orthogonal: 0
+  remove_Target: 1
+  remove_Orthogonal: 1
   remove_Recursion: 0
   remove_rejceted: 1
 
