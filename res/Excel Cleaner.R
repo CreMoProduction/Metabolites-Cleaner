@@ -1,6 +1,6 @@
 #debug settings, use --FALSE-- value when running in RStudio
 #
-OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
+OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
 #
 #
 if (OS_environment==TRUE) {
@@ -24,6 +24,7 @@ package= function() {
   #-----------
   lapply(packages, require, character.only = TRUE)
 }
+package()
 #Импорт данных
 #---получаю путь к этому файлу
 if  (OS_environment==FALSE) { 
@@ -61,7 +62,7 @@ search_algorithm= config$excel_cleaner$search_algorithm
 #if (interactive() && .Platform$OS.type == "windows") {
 dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
-if (length(dir) == 0 || file_ext(dir) !="xlsx") {
+if (length(dir) == 0 || substr(dir, nchar(dir) - 2, nchar(dir)) !="xlsx") {
   stop("No file selected or wrong file type")
 }
 #  }

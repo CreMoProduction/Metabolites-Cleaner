@@ -30,6 +30,7 @@ package= function() {
   #-----------
   lapply(packages, require, character.only = TRUE)
 }
+package()
 #Импорт данных
 #---получаю путь к этому файлу
 if  (OS_environment==FALSE) { 
@@ -60,7 +61,7 @@ working_sheet= config$name_fixer$xlsx_sheet
 #открываю excel файл
 dir=choose.files( caption= "Select Excel File", multi = FALSE)
 # Check if a file was selected
-if (length(dir) == 0 || file_ext(dir) !="xlsx") {
+if (length(dir) == 0 || substr(dir, nchar(dir) - 2, nchar(dir)) !="xlsx") {
   stop("No file selected or wrong file type")
 }
 Excel_file = read_excel(dir, sheet = working_sheet)
