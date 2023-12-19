@@ -1,6 +1,6 @@
 #debug settings, use --FALSE-- value when running in RStudio
 #
-OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
+OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
 #
 #
 if (OS_environment==TRUE) {
@@ -62,7 +62,8 @@ rm_Rejceted= config$nist_cleaner$remove_rejceted
 #search_algorithm= config$nist_cleaner$search_algorithm
 #-----------------------работаю с файлами картинок
 #файлы approved
-dir=choose.files(caption= "Select NIST file")
+#dir=choose.files(caption= "Select NIST file")
+dir=file.choose()
 if (length(dir) == 0 || substr(dir, nchar(dir) - 2, nchar(dir)) !="txt") {
   stop("No file selected or wrong file type")
 }
@@ -244,7 +245,7 @@ text_maker= function() {
   text <- paste(merged_data, collapse = "\n")
   return(text)
 }
-#aim= "Target"
+aim= "Target"
 remover_func_v2= function(aim) {
   fun_aim= paste("  ", aim," ", sep="")
   count_target_init <- length(grep(fun_aim, colnames(text_df)))
@@ -256,7 +257,9 @@ remover_func_v2= function(aim) {
   pb <- txtProgressBar(min = 0, max = count_target, style = 3) #progressbar
   progress <- 0 #progressbar
   while (count_target!=0) {
-    pattern <- paste0(aim, "(..)$") #проверяю если 2 символа следуют после aim
+    #pattern <- paste0(aim, "(..)$") #проверяю если 2 символа следуют после aim
+    pattern= aim
+    #print(paste(count_target, i, sep=" "))
     if (any(grepl(fun_aim, colnames(text_df)[i])) & grepl(pattern, colnames(text_df)[i])) {
       text_df= text_df[,-i]
       i=1
@@ -265,7 +268,12 @@ remover_func_v2= function(aim) {
       setTxtProgressBar(pb, progress) #progressbar
       Sys.sleep(0.5) #progressbar
     } else {
-      i=i+1
+      if (i<length(colnames(text_df))) {
+        i=i+1
+      } else {
+        i=1  
+        count_target= count_target-1 #исключение если count_target никогда не достигнет 0
+      }
     }
     if (count_target == 0) { #progressbar
       # Close the progress bar
