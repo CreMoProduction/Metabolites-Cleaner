@@ -1,6 +1,6 @@
 #debug settings, use --FALSE-- value when running in RStudio
 #
-OS_environment = FALSE  #<-------EDIT HERE TO DEBUG MODE
+OS_environment = TRUE  #<-------EDIT HERE TO DEBUG MODE
 #
 #
 if (OS_environment==TRUE) {
@@ -196,7 +196,7 @@ remove_rejected_func= function(aim) {  #удаляю строки из папк�
 
 
 text_df_maker= function(text) {
-  text_df=data.frame(matrix(NA, nrow = 150, ncol = 1))
+  text_df=data.frame(matrix(NA, nrow = 350, ncol = 1))
   text_1 = text
   length(text_1)
   i=1
@@ -213,7 +213,7 @@ text_df_maker= function(text) {
     }
     text_block= text_1[start_row:end_row]
     text_block= data.frame(Text = text_block, stringsAsFactors = FALSE)
-    empty_lines=150 - nrow(text_block)
+    empty_lines=350 - nrow(text_block)
     empty_lines_df= data.frame(matrix(nrow = empty_lines, ncol = 1))
     colnames(empty_lines_df)[1]= "Text"
     text_block= rbind(text_block, empty_lines_df)

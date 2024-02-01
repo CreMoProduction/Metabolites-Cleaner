@@ -60,7 +60,8 @@ search_algorithm= config$excel_cleaner$search_algorithm
 #-----------------------работаю с файлами картинок
 #файлы approved
 #if (interactive() && .Platform$OS.type == "windows") {
-dir=choose.files( caption= "Select Excel File", multi = FALSE)
+#dir=choose.files( caption= "Select Excel File", multi = FALSE)
+dir=file.choose()
 # Check if a file was selected
 if (length(dir) == 0 || substr(dir, nchar(dir) - 3, nchar(dir)) !="xlsx") {
   stop("No file selected or wrong file type")
@@ -90,7 +91,9 @@ xlsx = file.path(dir)
 xlsx_new= file.path(dirname(dir), paste(tools::file_path_sans_ext(basename(dir)),"_CLEAN.xlsx", sep=""), fsep="/")
 file.copy(xlsx, xlsx_new, overwrite = TRUE )
 #открываю excel файл
-Excel_file = read_excel(xlsx_new, sheet = working_sheet)
+Excel_file = read_excel(xlsx_new, sheet = working_sheet, col_names = FALSE)
+colnames(Excel_file)= Excel_file[1,]
+Excel_file= Excel_file[-1,]
 #создаю лист Rejected
 wb <- loadWorkbook(file = xlsx_new)
 addWorksheet(wb, paste("Rejected"))
@@ -161,9 +164,9 @@ if (search_algorithm==0) {
   print(paste("(Input:)  ", " --- ","  (Match:)", sep=" "))
   result=name_search()
 }
-#получаю датасетыдля эксель
-df_rejected= data.frame(result[1])
-Excel_file= data.frame(result[2])
+#получаю датасеты для эксель
+df_rejected= data.frame(result[1], check.names= FALSE)
+Excel_file= data.frame(result[2], check.names= FALSE)
 #заменяю точки на пробел
 colnames(df_rejected)= gsub("\\.", " ", colnames(df_rejected))
 colnames(Excel_file)= gsub("\\.", " ", colnames(Excel_file))
